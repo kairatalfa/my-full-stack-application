@@ -11,7 +11,7 @@ router.post(
   "/register",
   [
     check("email", "некоррекный emil").isEmail(),
-    check("password", "мигимальное длина пароля 6 символов").isLatLong({
+    check("password", "минимальное длина пароля 6 символов").isLatLong({
       min: 6,
     }),
   ],
@@ -19,7 +19,7 @@ router.post(
     try {
       console.log(req.body, "boody");
       const errors = validationResult(req);
-      if (errors.isEmpty()) {
+      if (!errors.isEmpty()) {
         return res.status(400).json({
           errors: errors.array(),
           message: "некоррекный данные при регистрации",

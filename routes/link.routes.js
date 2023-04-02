@@ -5,7 +5,7 @@ const Link = require("../models/link");
 const auth = require("../middleware/auth.middleware");
 const router = Router();
 
-router.post("/generate", auth, async (rea, req) => {
+router.post("/generate", auth, async (req, res) => {
   try {
     const baseUrl = config.get("baseUrl");
     const { from } = req.body;
@@ -30,25 +30,25 @@ router.post("/generate", auth, async (rea, req) => {
     await link.save();
     res.status(201).json({ link });
   } catch (error) {
-    res.status(500).json({ message: "что то пашло не так, побробуйте снова " });
+    res.status(500).json({ message: "что-то пошло не так, попробуйте снова" });
   }
 });
 
-router.get("/", auth, async (res, req) => {
-  const links = await Link.find({ owner: req.user.userId });
-  res.json(links);
+router.get("/", auth, async (req, res) => {
   try {
+    const links = await Link.find({ owner: req.user.userId });
+    res.json(links);
   } catch (error) {
-    res.status(500).json({ message: "что то пашло не так, побробуйте снова " });
+    res.status(500).json({ message: "что-то пошло не так, попробуйте снова" });
   }
 });
 
-router.get("/:id", auth, async (res, req) => {
+router.get("/:id", auth, async (req, res) => {
   try {
     const link = await Link.findById(req.params.id);
     res.json(link);
   } catch (error) {
-    res.status(500).json({ message: "что то пашло не так, побробуйте снова " });
+    res.status(500).json({ message: "что-то пошло не так, попробуйте снова" });
   }
 });
 

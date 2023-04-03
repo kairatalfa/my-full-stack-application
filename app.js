@@ -1,5 +1,6 @@
 const express = require("express");
 const config = require("config");
+const path = require("path");
 const mongoose = require("mongoose");
 const proxy = require("./proxy");
 const cors = require("cors");
@@ -11,6 +12,14 @@ app.use(cors());
 app.use("/api/auth", require("./routes/auth.routes"));
 app.use("/api/link", require("./routes/link.routes"));
 app.use("/t", require("./routes/redirect.router"));
+
+if (process.env.NODE_ENV === "production") {
+  app.use("/", express.static(path.json(__dirname, "client", "build")));
+
+  app.get("*", (req, res) => {
+    res.sendFile(path.__dirname, "cleint", "build", "index.html");
+  });
+}
 
 const PORT = config.get("part") || 5000;
 

@@ -1,0 +1,6 @@
+{
+  "part": 5000,
+  "jwtSecret": "kairat developer",
+  "mongoUri": "mongodb+srv://kairat:kairatalfa@cluster0.exmlx9b.mongodb.net/app?retryWrites=true&w=majority",
+  "baseUrl": "http://localhost:5000"
+}
